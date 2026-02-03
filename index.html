@@ -2,38 +2,54 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>簡単カウンター</title>
+  <title>テンション上昇ボタン</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
-      margin-top: 50px;
+      padding-top: 100px;
+      transition: background-color 0.3s;
     }
     button {
       font-size: 20px;
-      padding: 10px 20px;
+      padding: 15px 30px;
+      cursor: pointer;
     }
-    #count {
-      font-size: 40px;
-      margin: 20px 0;
+    #level {
+      font-size: 28px;
+      margin-top: 30px;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 22px;
     }
   </style>
 </head>
 <body>
 
-  <h1>カウンターアプリ</h1>
-  <div id="count">0</div>
-  <button onclick="countUp()">＋1</button>
+  <h1>🎉 テンション上昇ボタン 🎉</h1>
+  <button onclick="up()">押す</button>
+
+  <div id="level">テンション：0</div>
+  <div id="message"></div>
 
   <script>
-    let count = 0;
+    let tension = 0;
 
-    function countUp() {
-      count++;
-      document.getElementById("count").textContent = count;
-    }
-  </script>
+    function up() {
+      tension++;
+      document.getElementById("level").textContent = "テンション：" + tension;
 
-</body>
-</html>
+      if (tension < 5) {
+        document.body.style.backgroundColor = "#E0F7FA";
+        message.textContent = "いい感じ";
+      } else if (tension < 10) {
+        document.body.style.backgroundColor = "#FFF9C4";
+        message.textContent = "ちょっと楽しい";
+      } else if (tension < 15) {
+        document.body.style.backgroundColor = "#FFE0B2";
+        message.textContent = "まあまあテンション高い";
+      } else if (tension < 20) {
+        document.body.style.backgroundColor = "#FFCCBC";
+
 

@@ -2,42 +2,73 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>調子に乗るボタン</title>
+  <title>口の悪い集中タイマー</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
-      padding-top: 100px;
-      transition: all 0.2s;
+      padding-top: 80px;
+      background-color: #f4f4f4;
     }
     button {
-      font-size: 22px;
-      padding: 15px 35px;
-      cursor: pointer;
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
     }
-    #message {
-      margin-top: 40px;
-      font-size: 24px;
-      transition: transform 0.2s;
+    #status {
+      margin-top: 30px;
+      font-size: 22px;
+    }
+    #time {
+      font-size: 32px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <h1>押すなよ？（押していい）</h1>
-  <button onclick="push()">押す</button>
-  <div id="message">まだ普通</div>
+  <h1>⏱️ 集中しろタイマー</h1>
+  <p>※触るな。作業しろ。</p>
+
+  <button onclick="start()">開始</button>
+  <button onclick="poke()">無駄に触る</button>
+
+  <div id="time">0 秒</div>
+  <div id="status">まだ何もしてない</div>
 
   <script>
-    let count = 0;
-    const messages = [
-      "まだいける",
-      "ちょっと楽しくなってきた",
-      "調子出てきたな",
-      "お前が押すからやぞ",
-      "はいはい楽しいね",
-      "そろそろ止めよ？",
-      "無限に押すな",
-      "だから
+    let seconds = 0;
+    let timer = null;
+
+    const angryMessages = [
+      "今触る意味ある？",
+      "手動いてるけど頭止まってるで",
+      "それ現実逃避やろ",
+      "作業しろ言うてるやん",
+      "はい集中切れた〜"
+    ];
+
+    function start() {
+      if (timer) return;
+
+      document.getElementById("status").textContent = "黙って作業中…";
+      timer = setInterval(() => {
+        seconds++;
+        document.getElementById("time").textContent = seconds + " 秒";
+      }, 1000);
+    }
+
+    function poke() {
+      if (!timer) return;
+
+      const msg =
+        angryMessages[Math.floor(Math.random() * angryMessages.length)];
+      document.getElementById("status").textContent = msg;
+    }
+  </script>
+
+</body>
+</html>
+
 
 

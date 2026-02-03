@@ -2,54 +2,42 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>テンション上昇ボタン</title>
+  <title>調子に乗るボタン</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
       padding-top: 100px;
-      transition: background-color 0.3s;
+      transition: all 0.2s;
     }
     button {
-      font-size: 20px;
-      padding: 15px 30px;
+      font-size: 22px;
+      padding: 15px 35px;
       cursor: pointer;
     }
-    #level {
-      font-size: 28px;
-      margin-top: 30px;
-    }
     #message {
-      margin-top: 20px;
-      font-size: 22px;
+      margin-top: 40px;
+      font-size: 24px;
+      transition: transform 0.2s;
     }
   </style>
 </head>
 <body>
 
-  <h1>🎉 テンション上昇ボタン 🎉</h1>
-  <button onclick="up()">押す</button>
-
-  <div id="level">テンション：0</div>
-  <div id="message"></div>
+  <h1>押すなよ？（押していい）</h1>
+  <button onclick="push()">押す</button>
+  <div id="message">まだ普通</div>
 
   <script>
-    let tension = 0;
-
-    function up() {
-      tension++;
-      document.getElementById("level").textContent = "テンション：" + tension;
-
-      if (tension < 5) {
-        document.body.style.backgroundColor = "#E0F7FA";
-        message.textContent = "いい感じ";
-      } else if (tension < 10) {
-        document.body.style.backgroundColor = "#FFF9C4";
-        message.textContent = "ちょっと楽しい";
-      } else if (tension < 15) {
-        document.body.style.backgroundColor = "#FFE0B2";
-        message.textContent = "まあまあテンション高い";
-      } else if (tension < 20) {
-        document.body.style.backgroundColor = "#FFCCBC";
+    let count = 0;
+    const messages = [
+      "まだいける",
+      "ちょっと楽しくなってきた",
+      "調子出てきたな",
+      "お前が押すからやぞ",
+      "はいはい楽しいね",
+      "そろそろ止めよ？",
+      "無限に押すな",
+      "だから
 
 

@@ -2,73 +2,90 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>口の悪い集中タイマー</title>
+  <title>あと◯分で出発しろ</title>
   <style>
     body {
       font-family: sans-serif;
+      background: #f7f7f7;
       text-align: center;
-      padding-top: 80px;
-      background-color: #f4f4f4;
+      padding: 40px;
     }
-    button {
-      font-size: 18px;
-      padding: 10px 20px;
+    h1 {
+      font-size: 28px;
+    }
+    input, button {
+      font-size: 16px;
+      padding: 8px;
       margin: 10px;
     }
-    #status {
+    #timeLeft {
+      font-size: 40px;
       margin-top: 30px;
-      font-size: 22px;
     }
-    #time {
-      font-size: 32px;
-      margin-top: 20px;
+    #message {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #555;
     }
   </style>
 </head>
 <body>
 
-  <h1>⏱️ 集中しろタイマー</h1>
-  <p>※触るな。作業しろ。</p>
+<h1>🚪 あと◯分で出発しろ</h1>
 
-  <button onclick="start()">開始</button>
-  <button onclick="poke()">無駄に触る</button>
+<p>出発時間を入れて</p>
+<input type="time" id="departureTime">
+<br>
+<button onclick="start()">表示する</button>
 
-  <div id="time">0 秒</div>
-  <div id="status">まだ何もしてない</div>
+<div id="timeLeft"></div>
+<div id="message"></div>
 
-  <script>
-    let seconds = 0;
-    let timer = null;
+<script>
+let timer;
 
-    const angryMessages = [
-      "今触る意味ある？",
-      "手動いてるけど頭止まってるで",
-      "それ現実逃避やろ",
-      "作業しろ言うてるやん",
-      "はい集中切れた〜"
-    ];
+function start() {
+  clearInterval(timer);
+  timer = setInterval(update, 1000);
+  update();
+}
 
-    function start() {
-      if (timer) return;
+function update() {
+  const input = document.getElementById("departureTime").value;
+  if (!input) return;
 
-      document.getElementById("status").textContent = "黙って作業中…";
-      timer = setInterval(() => {
-        seconds++;
-        document.getElementById("time").textContent = seconds + " 秒";
-      }, 1000);
-    }
+  const now = new Date();
+  const [h, m] = input.split(":");
+  const departure = new Date();
+  departure.setHours(h, m, 0);
 
-    function poke() {
-      if (!timer) return;
+  let diff = Math.floor((departure - now) / 1000);
 
-      const msg =
-        angryMessages[Math.floor(Math.random() * angryMessages.length)];
-      document.getElementById("status").textContent = msg;
-    }
-  </script>
+  if (diff <= 0) {
+    document.getElementById("timeLeft").textContent = "出発しろ";
+    document.getElementById("message").textContent = "もう時間ないです";
+    clearInterval(timer);
+    return;
+  }
+
+  const min = Math.floor(diff / 60);
+  const sec = diff % 60;
+
+  document.getElementById("timeLeft").textContent =
+    `${min}分 ${sec}秒`;
+
+  let msg = "まだ大丈夫";
+  if (min < 10) msg = "そろそろ準備しよ";
+  if (min < 5) msg = "普通にヤバい";
+  if (min < 1) msg = "今すぐ動け";
+
+  document.getElementById("message").textContent = msg;
+}
+</script>
 
 </body>
 </html>
+
 
 
 
